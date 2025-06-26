@@ -1,6 +1,8 @@
 # Binaries
 gothemr
 
+!*/
+
 # OS-specific
 .DS_Store
 *.exe

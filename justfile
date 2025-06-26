@@ -1,3 +1,8 @@
+default: list
+
+list:
+    @just --list
+
 build:
     go build -o gothemr ./cmd/gothemr
 
