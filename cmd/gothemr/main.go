@@ -5,11 +5,18 @@ import (
 	"log"
 	"os"
 
+	"github.com/sokolawesome/gothemr/internal/config"
 	"github.com/sokolawesome/gothemr/internal/extractor"
 	"github.com/sokolawesome/gothemr/internal/palette"
 )
 
 func main() {
+	cfg, err := config.Load()
+	if err != nil {
+		log.Fatalf("Failed to load config: %v", err)
+	}
+	fmt.Printf("Config loaded. Cache directory: %s\n\n", cfg.CacheDir)
+
 	if len(os.Args) < 2 {
 		log.Fatal("Please provide an image path.")
 	}
