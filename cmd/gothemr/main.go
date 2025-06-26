@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/sokolawesome/gothemr/internal/extractor"
+	"github.com/sokolawesome/gothemr/internal/palette"
 )
 
 func main() {
@@ -23,4 +24,11 @@ func main() {
 	for _, color := range colors {
 		fmt.Printf("%s %s (R:%d G:%d B:%d)\n", color.TerminalString(), color.Hex(), color.R, color.G, color.B)
 	}
+
+	pal := palette.Generate(colors)
+
+	fmt.Println("--- Palette ---")
+	fmt.Printf("Background: %s\n", pal.Background.Hex())
+	fmt.Printf("Foreground: %s\n", pal.Foreground.Hex())
+	fmt.Printf("Accent:     %s\n", pal.Accent.Hex())
 }
