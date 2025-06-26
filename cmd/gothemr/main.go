@@ -4,10 +4,12 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"path/filepath"
 
 	"github.com/sokolawesome/gothemr/internal/config"
 	"github.com/sokolawesome/gothemr/internal/extractor"
 	"github.com/sokolawesome/gothemr/internal/palette"
+	"github.com/sokolawesome/gothemr/internal/themes"
 )
 
 func main() {
@@ -38,4 +40,13 @@ func main() {
 	fmt.Printf("Background: %s\n", pal.Background.Hex())
 	fmt.Printf("Foreground: %s\n", pal.Foreground.Hex())
 	fmt.Printf("Accent:     %s\n", pal.Accent.Hex())
+
+	themeName := fmt.Sprintf("theme_%s", filepath.Base(imagePath))
+	themePath := filepath.Join(cfg.CacheDir, themeName)
+
+	if err := themes.GenerateAll(pal, themePath); err != nil {
+		log.Fatalf("Failed to generate themes: %v", err)
+	}
+
+	fmt.Printf("Successfully generated themes in %s\n", themePath)
 }
