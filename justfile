@@ -1,24 +1,45 @@
-default: list
-
+# List available tasks
 list:
     @just --list
 
+# Build the application binary
 build:
-    go build -o gothemr ./cmd/gothemr
+    @echo "Building gothemr..."
+    @go build -o gothemr ./cmd/gothemr
 
-test:
-    go test ./...
+# Run the application (builds it first)
+run: build
+    @echo "Running gothemr..."
+    @./gothemr
 
+# Format all Go source files
 fmt:
-    go fmt ./...
+    @echo "Formatting code..."
+    @go fmt ./...
 
+# Tidy the mod file
+tidy:
+    @echo "Tidying dependencies..."
+    @go mod tidy
+
+# Lint the codebase
+lint:
+    @echo "Linting code..."
+    @golangci-lint run ./...
+
+# Vet the codebase
 vet:
-    go vet ./...
+    @echo "Checking packages..."
+    @go vet ./...
 
-dev: fmt vet test build
+# Test the codebase
+test:
+    @echo "Testing code..."
+    @go test ./...
 
-install:
-    go install ./cmd/gothemr
+# Run all checkers and build
+dev: lint fmt vet test build
 
+# Clean binaries
 clean:
     rm -f gothemr
